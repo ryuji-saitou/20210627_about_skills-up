@@ -1,0 +1,24 @@
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
+<%= form_with model:@book, url:book_path(@book.id), local:true do |f| %>
+  <h1 class="edit-title">Editing Book</h1>
+  <!--ここからエラーメッセージ-->
+  <% if @book.errors.any? %>
+    <p><%= @book.errors.count %>件のエラーが発生しました</p>
+    <% @book.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+    <% end %>
+  <% end %>
+  <!--ここまでエラーメッセージ-->
+  <div class="edit-field">
+    <p>Title</p>
+    <p><%= f.text_field :title, class:"edit-field-put" %></p>
+  </div>
+  <div class="edit-field">
+    <p>Body</p>
+    <p><%= f.text_area :body, class:"edit-field-put" %></p>
+  </div>
+  <p><%= f.submit "Update Book", class:"edit-field-put" %></p>
+<% end %>
+<p><%= link_to "Show", book_path(@book.id) %> | <%= link_to "Back", books_path %></p>
